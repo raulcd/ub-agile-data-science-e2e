@@ -50,8 +50,8 @@ Test your Dockerfile via:
 
 ```
 cd backend
-docker build -t ub-agile-data-science-e2e .
-docker run -p 5000:5000 ub-agile-data-science-e2e:latest
+docker build -t ub-agile-data-science-backend .
+docker run -p 5000:5000 ub-agile-data-science-backend:latest
 ```
 
 Go to your browser:
@@ -89,8 +89,8 @@ Test your Dockerfile via:
 
 ```
 cd backend
-docker build -t ub-agile-data-science-e2e .
-docker run -p 8000:8000 ub-agile-data-science-e2e:latest
+docker build -t ub-agile-data-science-backend .
+docker run -p 8000:8000 ub-agile-data-science-backend:latest
 ```
 
 Go to your browser:
@@ -165,14 +165,14 @@ Build the model executing it in the Docker container with:
 
 ```
 cd backend
-docker build -t ub-agile-data-science-e2e .
-docker run -v .:/app ub-agile-data-science-e2e:latest python train.py
+docker build -t ub-agile-data-science-backend .
+docker run -v .:/app ub-agile-data-science-backend:latest python train.py
 ```
 
 You should see an output similar to the following:
 
 ```
-$ docker run -v .:/app ub-agile-data-science-e2e:latest python train.py
+$ docker run -v .:/app ub-agile-data-science-backend:latest python train.py
 Accuracy: 0.933
 Saved MLflow model to: /app/model
 ```
@@ -250,8 +250,8 @@ def health() -> dict:
 
 Rebuild your docker image and execute with:
 ```
-docker build -t ub-agile-data-science-e2e .
-docker run -v .:/app -p 8000:8000 ub-agile-data-science-e2e:latest
+docker build -t ub-agile-data-science-backend .
+docker run -v .:/app -p 8000:8000 ub-agile-data-science-backend:latest
 ```
 
 Test with:
@@ -283,8 +283,8 @@ def predict(req: PredictRequest) -> PredictResponse:
 
 Rebuild your docker image and execute with:
 ```
-docker build -t ub-agile-data-science-e2e .
-docker run -v .:/app -p 8000:8000 ub-agile-data-science-e2e:latest
+docker build -t ub-agile-data-science-backend .
+docker run -v .:/app -p 8000:8000 ub-agile-data-science-backend:latest
 ```
 
 Test with:
