@@ -1,0 +1,4 @@
+Model expects a list of 4 floats per sample (feature vector of length 4).
+Example request JSON: {
+  "features": [0.1, -1.2, 0.3, 2.4]
+}
