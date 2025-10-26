@@ -30,9 +30,9 @@ fastapi
 uvicorn
 ```
 
-Create a Dockerfile inside the `backend` directory with the following contents:
+Create a `Dockerfile` file inside the `backend` directory with the following contents:
 
-```
+```Dockerfile
 FROM python:3.13
 
 WORKDIR /app
@@ -48,7 +48,7 @@ CMD ["mlflow", "ui", "--host", "0.0.0.0", "--port", "5000"]
 
 Test your Dockerfile via:
 
-```
+```bash
 cd backend
 docker build -t ub-agile-data-science-backend .
 docker run -p 5000:5000 ub-agile-data-science-backend:latest
@@ -81,13 +81,13 @@ def health() -> dict:
 
 Update the command on your Dockerfile to run the FastAPI application with:
 
-```
+```Dockerfile
 CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
 ```
 
 Test your Dockerfile via:
 
-```
+```bash
 cd backend
 docker build -t ub-agile-data-science-backend .
 docker run -p 8000:8000 ub-agile-data-science-backend:latest
@@ -163,7 +163,7 @@ if __name__ == "__main__":
 
 Build the model executing it in the Docker container with:
 
-```
+```bash
 cd backend
 docker build -t ub-agile-data-science-backend .
 docker run -v .:/app ub-agile-data-science-backend:latest python train.py
@@ -171,7 +171,7 @@ docker run -v .:/app ub-agile-data-science-backend:latest python train.py
 
 You should see an output similar to the following:
 
-```
+```bash
 $ docker run -v .:/app ub-agile-data-science-backend:latest python train.py
 Accuracy: 0.933
 Saved MLflow model to: /app/model
@@ -189,7 +189,7 @@ git push
 
 ## Expose the model with FastAPI
 
-Update your `train.py` file and add the following function:
+Update your `app.py` file and add the following function:
 
 ```python
 import os
@@ -249,7 +249,8 @@ def health() -> dict:
 ```
 
 Rebuild your docker image and execute with:
-```
+
+```bash
 docker build -t ub-agile-data-science-backend .
 docker run -v .:/app -p 8000:8000 ub-agile-data-science-backend:latest
 ```
@@ -259,7 +260,7 @@ http://localhost:8000/predict
 
 ## Update to POST request
 
-On `train.py` update the predict function to:
+On `app.py` update the predict function to:
 
 ```python
 @app.post("/predict", response_model=PredictResponse)
@@ -282,7 +283,8 @@ def predict(req: PredictRequest) -> PredictResponse:
 ```
 
 Rebuild your docker image and execute with:
-```
+
+```bash
 docker build -t ub-agile-data-science-backend .
 docker run -v .:/app -p 8000:8000 ub-agile-data-science-backend:latest
 ```
@@ -301,7 +303,7 @@ Click on **Try it out**:
 
 Edit the value for the list of features to a list of 4:
 
-```
+```json
 {
   "features": [
     0,0,0,0
@@ -327,7 +329,7 @@ git push
 
 Go back to the root folder of the project:
 
-```
+```bash
 cd ..
 ```
 
@@ -338,9 +340,9 @@ requests
 streamlit
 ```
 
-Create a `Dockerfile` inside the `frontend` folder with the following contents:
+Create a `Dockerfile` file inside the `frontend` folder with the following contents:
 
-```
+```dockerfile
 FROM python:3.13
 
 WORKDIR /app
@@ -355,14 +357,14 @@ CMD ["streamlit", "run", "app.py", "--server.address=0.0.0.0", "--server.port=80
 ```
 
 Rebuild your docker image and execute with:
-```
+```bash
 docker build -t ub-agile-data-science-frontend .
 docker run ub-agile-data-science-frontend:latest
 ```
 
 The above should fail saying there's no `app.py`. Let's create a file named `app.py` inside frontend:
 
-```
+```python
 import streamlit as st
 
 st.write("Hello world")
@@ -429,19 +431,19 @@ Rebuild and run our container:
 
 
 
-```
+```bash
 docker build -t ub-agile-data-science-frontend .
 ```
 
 **On Linux**
 
-```
+```bash
 docker run -p 800:800 --add-host=host.docker.internal:host-gateway ub-agile-data-science-frontend:latest
 ```
 
 **On macOS / Windows**
 
-```
+```bash
 docker run -p 800:800 ub-agile-data-science-frontend:latest
 ```
 
